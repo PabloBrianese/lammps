@@ -155,12 +155,21 @@ void Update::set_units(const char *style)
   } else if (strcmp(style,"real") == 0) {
     force->boltz = 0.0019872067;
     force->hplanck = 95.306976368;
-    force->mvv2e = 48.88821291 * 48.88821291;
+    force->mvv2e = 48.88821291 * 48.88821291;  // is equal to (grams/mole) * (Angstroms / femtoseconds)**2 / (kilocalories/mole)
+    // 1 gram = 1e-3 kilogram
+    // 1 Angstrom = 1e-10 meter
+    // 1 femtosecond = 1e-15 second
+    // 1 kilocalorie = 1000 calorie = 1000 (4.184 Joule)
+    // 1 Joule = 1 kilogram * meter**2 / second**2
     force->ftm2v = 1.0 / 48.88821291 / 48.88821291;
+    /* 
+    this number gives me a lot of trouble
+    it is used in fix_nve.cpp, it multiplies time data resulting in time data
+    */
     force->mv2d = 1.0 / 0.602214129;
     force->nktv2p = 68568.415;
     force->qqr2e = 332.06371;     // see also force->qqr2d_lammps_real
-    force->qe2f = 23.060549;
+    force->qe2f = 23.060549;  // this number gives me a lot of trouble
     force->vxmu2f = 1.4393264316e4;
     force->xxt2kmu = 0.1;
     force->e_mass = 1.0/1836.1527556560675;
@@ -198,11 +207,11 @@ void Update::set_units(const char *style)
     force->boltz = 1.3806504e-23;
     force->hplanck = 6.62606896e-34;
     force->mvv2e = 1.0;
-    force->ftm2v = 1.0;
+    force->ftm2v = 1.0;  // this unit does not requiere time rescaling
     force->mv2d = 1.0;
     force->nktv2p = 1.0;
     force->qqr2e = 8.9876e9;
-    force->qe2f = 1.0;
+    force->qe2f = 1.0;  // this unit does not require force rescaling
     force->vxmu2f = 1.0;
     force->xxt2kmu = 1.0;
     force->e_mass = 0.0;    // not yet set
@@ -219,11 +228,11 @@ void Update::set_units(const char *style)
     force->boltz = 1.3806504e-16;
     force->hplanck = 6.62606896e-27;
     force->mvv2e = 1.0;
-    force->ftm2v = 1.0;
+    force->ftm2v = 1.0;  // this unit does not require time rescaling
     force->mv2d = 1.0;
     force->nktv2p = 1.0;
     force->qqr2e = 1.0;
-    force->qe2f = 1.0;
+    force->qe2f = 1.0;  // this unit does not require force rescaling
     force->vxmu2f = 1.0;
     force->xxt2kmu = 1.0;
     force->e_mass = 0.0;    // not yet set
