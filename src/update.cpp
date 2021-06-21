@@ -169,7 +169,12 @@ void Update::set_units(const char *style)
     force->mv2d = 1.0 / 0.602214129;
     force->nktv2p = 68568.415;
     force->qqr2e = 332.06371;     // see also force->qqr2d_lammps_real
-    force->qe2f = 23.060549;  // this number gives me a lot of trouble
+    force->qe2f = 23.060549;  // is equal to N_A * eV / kcal
+    // mol = mole
+    // N_A = avogadro's constant = 6.02214076e23 mol^{-1}
+    // J = Joule
+    // eV = electronvolt = 1.602176634e-19 J
+    // kcal = kilocalorie = 1e3 * (thermochemical calorie) = 1e3 * (1 cal) = 1e3 (4.184 J) = 4184 J
     force->vxmu2f = 1.4393264316e4;
     force->xxt2kmu = 0.1;
     force->e_mass = 1.0/1836.1527556560675;
